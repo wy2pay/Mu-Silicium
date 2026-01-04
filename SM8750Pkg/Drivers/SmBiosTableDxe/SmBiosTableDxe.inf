@@ -1,0 +1,44 @@
+## @file
+# SMBIOS Table DXE Driver for SM8750 (Snapdragon 8 Elite)
+#
+# Creates SMBIOS tables for Windows/Linux compatibility
+# Includes: Type 0, 1, 2, 3, 4, 7, 16, 17, 19, 32
+#
+# Copyright (c) 2024, Project Silicium. All rights reserved.
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmBiosTableDxe
+  FILE_GUID                      = B1C2D3E4-F5A6-7B8C-9D0E-1F2A3B4C5D6E
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SmBiosTableDxeInitialize
+
+[Sources]
+  SmBiosTableDxe.c
+
+[Packages]
+  ArmPkg/ArmPkg.dec
+  ArmPlatformPkg/ArmPlatformPkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  Silicon/Qualcomm/QcomPkg/QcomPkg.dec
+  Silicon/Qualcomm/SM8750Pkg/SM8750Pkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  MemoryAllocationLib
+  PrintLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiLib
+
+[Protocols]
+  gEfiSmbiosProtocolGuid                        ## CONSUMES
+
+[Depex]
+  gEfiSmbiosProtocolGuid

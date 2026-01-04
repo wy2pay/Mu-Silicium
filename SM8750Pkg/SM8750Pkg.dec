@@ -1,0 +1,24 @@
+## @file
+# SM8750 SoC Package Declaration
+#
+# Copyright (c) 2024, Project Silicium. All rights reserved.
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = SM8750Pkg
+  PACKAGE_GUID                   = 7A3D2E8F-4B5C-6D1A-9E0F-8C2B3A4D5E6F
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[Guids]
+  gSM8750PkgTokenSpaceGuid = { 0x7A3D2E8F, 0x4B5C, 0x6D1A, { 0x9E, 0x0F, 0x8C, 0x2B, 0x3A, 0x4D, 0x5E, 0x6F } }
+
+[Protocols]
+
+[PcdsFixedAtBuild]
+  # SoC Identification
+  gSM8750PkgTokenSpaceGuid.PcdSocChipId|0x00000209|UINT32|0x00000001
