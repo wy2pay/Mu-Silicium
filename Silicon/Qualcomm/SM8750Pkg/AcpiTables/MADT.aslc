@@ -1,0 +1,154 @@
+/** @file
+ * Multiple APIC Description Table (MADT) for SM8750
+ *
+ * GICv3 Configuration for Snapdragon 8 Elite (Oryon cores)
+ *
+ * Copyright (c) 2024, Project Silicium. All rights reserved.
+ * SPDX-License-Identifier: BSD-2-Clause-Patent
+ */
+
+#include <IndustryStandard/Acpi.h>
+#include <Library/AcpiLib.h>
+#include <Library/ArmLib.h>
+#include <Library/PcdLib.h>
+
+#define GICC_BASE       0x17A60000
+#define GICD_BASE       0x17A00000
+#define GICR_BASE       0x17A60000
+
+//
+// MADT Structure
+//
+#pragma pack(1)
+
+typedef struct {
+  EFI_ACPI_6_5_MULTIPLE_APIC_DESCRIPTION_TABLE_HEADER Header;
+
+  // GIC Distributor
+  EFI_ACPI_6_5_GIC_DISTRIBUTOR_STRUCTURE GicD;
+
+  // GIC CPU Interface (8 Oryon cores)
+  EFI_ACPI_6_5_GIC_STRUCTURE GicC[8];
+
+  // GIC Redistributor
+  EFI_ACPI_6_5_GICR_STRUCTURE GicR;
+
+  // GIC ITS (Interrupt Translation Service)
+  EFI_ACPI_6_5_GIC_ITS_STRUCTURE GicIts;
+
+} SM8750_MADT_STRUCTURE;
+
+#pragma pack()
+
+SM8750_MADT_STRUCTURE Madt = {
+  // MADT Header
+  {
+    ARM_ACPI_HEADER (
+      EFI_ACPI_6_5_MULTIPLE_APIC_DESCRIPTION_TABLE_SIGNATURE,
+      SM8750_MADT_STRUCTURE,
+      EFI_ACPI_6_5_MULTIPLE_APIC_DESCRIPTION_TABLE_REVISION
+    ),
+    0,  // LocalApicAddress (not used for ARM)
+    0   // Flags
+  },
+
+  // GIC Distributor
+  {
+    EFI_ACPI_6_5_GICD,
+    sizeof (EFI_ACPI_6_5_GIC_DISTRIBUTOR_STRUCTURE),
+    EFI_ACPI_RESERVED_WORD,
+    0,                    // GicId
+    GICD_BASE,            // Physical Base Address
+    0,                    // System Vector Base (not used)
+    3,                    // GIC Version (GICv3)
+    {EFI_ACPI_RESERVED_BYTE, EFI_ACPI_RESERVED_BYTE, EFI_ACPI_RESERVED_BYTE}
+  },
+
+  // GIC CPU Interfaces (8 cores)
+  {
+    // Core 0 (Oryon performance core)
+    EFI_ACPI_6_5_GICC_STRUCTURE_INIT(
+      0,                                // GicId
+      0,                                // AcpiProcessorUid
+      EFI_ACPI_6_5_GIC_ENABLED,        // Flags
+      0,                                // ParkingProtocolVersion
+      0,                                // PerformanceInterruptGsiv
+      0,                                // ParkedAddress
+      GICC_BASE,                        // PhysicalBaseAddress
+      0,                                // GICV (not used in GICv3)
+      0,                                // GICH (not used in GICv3)
+      25,                               // VGICMaintenanceInterrupt
+      GICR_BASE,                        // GICRBaseAddress
+      0,                                // MPIDR
+      0,                                // ProcessorPowerEfficiencyClass
+      0,                                // Reserved2
+      0,                                // SpeOverflowInterrupt
+      0                                 // TrbeInterrupt
+    ),
+
+    // Core 1
+    EFI_ACPI_6_5_GICC_STRUCTURE_INIT(
+      1, 1, EFI_ACPI_6_5_GIC_ENABLED, 0, 0, 0, GICC_BASE,
+      0, 0, 25, GICR_BASE + 0x20000, 0x100, 0, 0, 0, 0
+    ),
+
+    // Core 2
+    EFI_ACPI_6_5_GICC_STRUCTURE_INIT(
+      2, 2, EFI_ACPI_6_5_GIC_ENABLED, 0, 0, 0, GICC_BASE,
+      0, 0, 25, GICR_BASE + 0x40000, 0x200, 0, 0, 0, 0
+    ),
+
+    // Core 3
+    EFI_ACPI_6_5_GICC_STRUCTURE_INIT(
+      3, 3, EFI_ACPI_6_5_GIC_ENABLED, 0, 0, 0, GICC_BASE,
+      0, 0, 25, GICR_BASE + 0x60000, 0x300, 0, 0, 0, 0
+    ),
+
+    // Core 4
+    EFI_ACPI_6_5_GICC_STRUCTURE_INIT(
+      4, 4, EFI_ACPI_6_5_GIC_ENABLED, 0, 0, 0, GICC_BASE,
+      0, 0, 25, GICR_BASE + 0x80000, 0x400, 0, 0, 0, 0
+    ),
+
+    // Core 5
+    EFI_ACPI_6_5_GICC_STRUCTURE_INIT(
+      5, 5, EFI_ACPI_6_5_GIC_ENABLED, 0, 0, 0, GICC_BASE,
+      0, 0, 25, GICR_BASE + 0xA0000, 0x500, 0, 0, 0, 0
+    ),
+
+    // Core 6 (Oryon performance core)
+    EFI_ACPI_6_5_GICC_STRUCTURE_INIT(
+      6, 6, EFI_ACPI_6_5_GIC_ENABLED, 0, 0, 0, GICC_BASE,
+      0, 0, 25, GICR_BASE + 0xC0000, 0x600, 0, 0, 0, 0
+    ),
+
+    // Core 7 (Oryon performance core)
+    EFI_ACPI_6_5_GICC_STRUCTURE_INIT(
+      7, 7, EFI_ACPI_6_5_GIC_ENABLED, 0, 0, 0, GICC_BASE,
+      0, 0, 25, GICR_BASE + 0xE0000, 0x700, 0, 0, 0, 0
+    ),
+  },
+
+  // GIC Redistributor
+  {
+    EFI_ACPI_6_5_GICR,
+    sizeof (EFI_ACPI_6_5_GICR_STRUCTURE),
+    EFI_ACPI_RESERVED_WORD,
+    GICR_BASE,            // Discovery Range Base Address
+    0x100000              // Discovery Range Length (1MB for 8 cores)
+  },
+
+  // GIC ITS (Interrupt Translation Service)
+  {
+    EFI_ACPI_6_5_GIC_ITS,
+    sizeof (EFI_ACPI_6_5_GIC_ITS_STRUCTURE),
+    EFI_ACPI_RESERVED_WORD,
+    0,                    // GIC ITS ID
+    0x17A40000,           // Physical Base Address (GIC ITS)
+    EFI_ACPI_RESERVED_DWORD
+  }
+};
+
+VOID* ReferenceAcpiTable (VOID) {
+  return (VOID*)&Madt;
+}

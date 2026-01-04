@@ -1,0 +1,64 @@
+/** @file
+ * Generic Timer Description Table (GTDT) for SM8750
+ *
+ * ARM Generic Timer Configuration (19.2 MHz)
+ *
+ * Copyright (c) 2024, Project Silicium. All rights reserved.
+ * SPDX-License-Identifier: BSD-2-Clause-Patent
+ */
+
+#include <IndustryStandard/Acpi.h>
+#include <Library/AcpiLib.h>
+#include <Library/PcdLib.h>
+
+#define GTDT_GLOBAL_FLAGS_MAPPED          EFI_ACPI_6_5_GTDT_GLOBAL_FLAG_MEMORY_MAPPED_BLOCK_PRESENT
+#define GTDT_GLOBAL_FLAGS_NOT_MAPPED      0
+#define GTDT_GLOBAL_FLAGS_EDGE            EFI_ACPI_6_5_GTDT_GLOBAL_FLAG_INTERRUPT_MODE
+#define GTDT_GLOBAL_FLAGS_LEVEL           0
+
+// Timer Interrupt Numbers (from SM8750 analysis)
+#define TIMER_SEC_INTERRUPT               29
+#define TIMER_NON_SEC_INTERRUPT           30
+#define TIMER_VIRT_INTERRUPT              27
+#define TIMER_HYP_INTERRUPT               26
+
+#pragma pack(1)
+
+typedef struct {
+  EFI_ACPI_6_5_GENERIC_TIMER_DESCRIPTION_TABLE Header;
+} SM8750_GTDT_STRUCTURE;
+
+#pragma pack()
+
+SM8750_GTDT_STRUCTURE Gtdt = {
+  {
+    ARM_ACPI_HEADER (
+      EFI_ACPI_6_5_GENERIC_TIMER_DESCRIPTION_TABLE_SIGNATURE,
+      SM8750_GTDT_STRUCTURE,
+      EFI_ACPI_6_5_GENERIC_TIMER_DESCRIPTION_TABLE_REVISION
+    ),
+
+    0,                                        // UINT64  PhysicalAddress (not used for per-processor timers)
+    0,                                        // UINT32  Reserved
+
+    TIMER_SEC_INTERRUPT,                      // UINT32  SecurePL1TimerGSIV
+    GTDT_GLOBAL_FLAGS_LEVEL,                  // UINT32  SecurePL1TimerFlags
+
+    TIMER_NON_SEC_INTERRUPT,                  // UINT32  NonSecurePL1TimerGSIV
+    GTDT_GLOBAL_FLAGS_LEVEL,                  // UINT32  NonSecurePL1TimerFlags
+
+    TIMER_VIRT_INTERRUPT,                     // UINT32  VirtualTimerGSIV
+    GTDT_GLOBAL_FLAGS_LEVEL,                  // UINT32  VirtualTimerFlags
+
+    TIMER_HYP_INTERRUPT,                      // UINT32  NonSecurePL2TimerGSIV
+    GTDT_GLOBAL_FLAGS_LEVEL,                  // UINT32  NonSecurePL2TimerFlags
+
+    0,                                        // UINT64  CntReadBasePhysicalAddress (not memory-mapped)
+    0,                                        // UINT32  PlatformTimerCount
+    0                                         // UINT32  PlatformTimerOffset
+  }
+};
+
+VOID* ReferenceAcpiTable (VOID) {
+  return (VOID*)&Gtdt;
+}

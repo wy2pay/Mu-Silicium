@@ -1,0 +1,146 @@
+##
+#  Copyright (c) 2018, Linaro Limited. All rights reserved.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+################################################################################
+#
+# FD Section for Nubia Z70 (SM8750)
+# The [FD] Section is made up of the definition statements and a
+# description of what goes into the Flash Device Image.
+#
+################################################################################
+
+[FD.z70_UEFI]
+BaseAddress   = 0xA7000000|gArmTokenSpaceGuid.PcdFdBaseAddress     # SM8750 UEFI entry point
+Size          = 0x00400000|gArmTokenSpaceGuid.PcdFdSize            # 4MB UEFI FD
+ErasePolarity = 1
+
+# This one is tricky, it must be: BlockSize * NumBlocks = Size
+BlockSize     = 0x00001000
+NumBlocks     = 0x400
+
+################################################################################
+#
+# Following are lists of FD Region layout which correspond to the locations of different
+# images within the flash device.
+#
+# Regions must be defined in ascending order and may not overlap.
+#
+# A Layout Region start with a eight digit hex offset (leading "0x" required) followed by
+# the pipe "|" character, followed by the size of the region, also in hex with the leading
+# "0x" characters. Like:
+# Offset|Size
+# PcdOffsetCName|PcdSizeCName
+# RegionType <FV, DATA, or FILE>
+#
+################################################################################
+
+# UEFI Firmware Volume
+0x00000000|0x00400000
+gArmTokenSpaceGuid.PcdFvBaseAddress|gArmTokenSpaceGuid.PcdFvSize
+FV = FVMAIN_COMPACT
+
+################################################################################
+#
+# FV Section
+#
+# [FV] section is used to define what components or modules are placed within a flash
+# device file.
+#
+################################################################################
+
+[FV.FvMain]
+BlockSize          = 0x1000
+NumBlocks          = 0         # This FV gets compressed so make it just big enough
+FvAlignment        = 16
+ERASE_POLARITY     = 1
+MEMORY_MAPPED      = TRUE
+STICKY_WRITE       = TRUE
+LOCK_CAP           = TRUE
+LOCK_STATUS        = TRUE
+WRITE_DISABLED_CAP = TRUE
+WRITE_ENABLED_CAP  = TRUE
+WRITE_STATUS       = TRUE
+WRITE_LOCK_CAP     = TRUE
+WRITE_LOCK_STATUS  = TRUE
+READ_DISABLED_CAP  = TRUE
+READ_ENABLED_CAP   = TRUE
+READ_STATUS        = TRUE
+READ_LOCK_CAP      = TRUE
+READ_LOCK_STATUS   = TRUE
+
+  APRIORI DXE {
+    # First, install the PCD driver and call DxeInit
+    INF MdeModulePkg/Core/Dxe/DxeMain.inf
+    INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
+
+    # Critical SM8750 Binary Drivers (must load early)
+    FILE DRIVER = F541D663-4A48-40AA-AABF-FF158CCAE34C {
+      SECTION PE32 = Binaries/ZTE/SM8750/Drivers/ClockDxe.efi
+      SECTION DXE_DEPEX = Binaries/ZTE/SM8750/Drivers/ClockDxe.depex
+    }
+
+    FILE DRIVER = AF9763A2-033B-4109-8E17-56A98D380C92 {
+      SECTION PE32 = Binaries/ZTE/SM8750/Drivers/DALSys.efi
+      SECTION DXE_DEPEX = Binaries/ZTE/SM8750/Drivers/DALSys.depex
+    }
+
+    FILE DRIVER = F0D9BEB3-FAAF-4B5B-862E-DAE5F0E3BC32 {
+      SECTION PE32 = Binaries/ZTE/SM8750/Drivers/PlatformInfoDxeDriver.efi
+      SECTION DXE_DEPEX = Binaries/ZTE/SM8750/Drivers/PlatformInfoDxeDriver.depex
+    }
+  }
+
+  # DXE Core
+  INF MdeModulePkg/Core/Dxe/DxeMain.inf
+
+  # PI DXE Drivers producing Architectural Protocols (EFI Services)
+  INF ArmPkg/Drivers/CpuDxe/CpuDxe.inf
+  INF MdeModulePkg/Core/RuntimeDxe/RuntimeDxe.inf
+  INF MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
+  INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
+
+  # Qualcomm Platform Drivers
+  INF Silicon/Qualcomm/QcomPkg/Drivers/EnvDxe/EnvDxe.inf
+
+  # SM8750 SMBIOS Driver
+  INF Silicon/Qualcomm/SM8750Pkg/Drivers/SmBiosTableDxe/SmBiosTableDxe.inf
+
+  # Generic BDS
+  INF MdeModulePkg/Universal/DevicePathDxe/DevicePathDxe.inf
+  INF MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf
+  INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
+  INF MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
+  INF FatPkg/EnhancedFatDxe/Fat.inf
+  INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
+  INF MdeModulePkg/Universal/BdsDxe/BdsDxe.inf
+
+[FV.FVMAIN_COMPACT]
+FvAlignment        = 16
+ERASE_POLARITY     = 1
+MEMORY_MAPPED      = TRUE
+STICKY_WRITE       = TRUE
+LOCK_CAP           = TRUE
+LOCK_STATUS        = TRUE
+WRITE_DISABLED_CAP = TRUE
+WRITE_ENABLED_CAP  = TRUE
+WRITE_STATUS       = TRUE
+WRITE_LOCK_CAP     = TRUE
+WRITE_LOCK_STATUS  = TRUE
+READ_DISABLED_CAP  = TRUE
+READ_ENABLED_CAP   = TRUE
+READ_STATUS        = TRUE
+READ_LOCK_CAP      = TRUE
+READ_LOCK_STATUS   = TRUE
+
+  INF SiliciumPkg/PrePi/PeiUniCore.inf
+
+  FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 {
+    SECTION GUIDED EE4E5898-3914-4259-9D6E-DC7BD79403CF PROCESSING_REQUIRED = TRUE {
+      SECTION FV_IMAGE = FVMAIN
+    }
+  }
+
+!include SiliciumPkg/CommonFdf.dsc.inc
