@@ -33,6 +33,11 @@
   #
   SOC_TYPE                       = 0
 
+  # Firmware Volume Configuration
+  FD_BASE                        = 0xA7000000
+  FD_SIZE                        = 0x00400000
+  FD_BLOCKS                      = 0x400
+
 [PcdsFixedAtBuild]
   # DDR Start Address
   gArmTokenSpaceGuid.PcdSystemMemoryBase|0x80000000

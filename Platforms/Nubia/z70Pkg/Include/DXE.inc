@@ -1,0 +1,135 @@
+INF Binaries/np05j/QcomPkg/XBLCore/XBLCore.inf
+
+FILE FREEFORM = DDE58710-41CD-4306-DBFB-3FA90BB1D2DD {
+    SECTION UI = "uefiplat.cfg"
+    SECTION RAW = Binaries/np05j/RawFiles/uefiplat.cfg
+}
+
+INF MdeModulePkg/Core/Dxe/DxeMain.inf
+INF Binaries/np05j/QcomPkg/Drivers/EnvDxe/EnvDxeEnhanced.inf
+INF MdeModulePkg/Universal/ReportStatusCodeRouter/RuntimeDxe/RscRtDxe.inf
+INF MdeModulePkg/Universal/StatusCodeHandler/RuntimeDxe/SCHandlerRtDxe.inf
+INF Binaries/np05j/ArmPkg/Drivers/CpuDxe/CpuDxe.inf
+INF MdeModulePkg/Core/RuntimeDxe/RuntimeDxe.inf
+INF MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/VerifiedBootDxe/VerifiedBootDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ShmBridgeDxe/ShmBridgeDxeLA.inf
+INF Binaries/np05j/QcomPkg/Drivers/TzDxe/ScmDxeCompat.inf
+INF Binaries/np05j/QcomPkg/Drivers/TzDxe/TzDxeLA.inf
+INF Binaries/np05j/QcomPkg/Drivers/PsStateDxe/PsStateDxe.inf
+INF MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf
+INF MdeModulePkg/Universal/CapsuleRuntimeDxe/CapsuleRuntimeDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/VariableDxe/VariableDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/EmbeddedMonotonicCounter/EmbeddedMonotonicCounter.inf
+INF Binaries/np05j/QcomPkg/Drivers/ResetRuntimeDxe/ResetRuntimeDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/VendorLogfsDxe/VendorLogfsDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/CfgUtilDxe/CfgUtilDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/NubiaBoardDxe/NubiaBoardDxe.inf
+INF EmbeddedPkg/RealTimeClockRuntimeDxe/RealTimeClockRuntimeDxe.inf
+INF EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf
+INF MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/FontDxe/FontDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/QcomWDogDxe/QcomWDogDxe.inf
+INF ArmPkg/Drivers/ArmGic/ArmGicDxe.inf
+INF ArmPkg/Drivers/TimerDxe/TimerDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ChipInfoDxe/ChipInfoDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/PlatformInfoDxe/PlatformInfoDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/DALSYSDxe/DALSYSDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/HALIOMMUDxe/HALIOMMUDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/HWIODxe/HWIODxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/HSUartDxe/HSUartDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/I2CDxe/I2CDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/TLMMDxe/TLMMDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/QupDxe/QupDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/PmicDxe/PmicDxeLa.inf
+INF Binaries/np05j/QcomPkg/Drivers/EDLoadDxe/EDLoadDxe.inf
+INF MdeModulePkg/Universal/DevicePathDxe/DevicePathDxe.inf
+INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
+INF MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
+INF Binaries/np05j/FatPkg/EnhancedFatDxe/Fat.inf
+INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
+INF MdeModulePkg/Universal/FvSimpleFileSystemDxe/FvSimpleFileSystemDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/CmdDbDxe/CmdDbDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/PwrUtilsDxe/PwrUtilsDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/RpmhDxe/RpmhDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/NpaDxe/NpaDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ULogDxe/ULogDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/MailboxDxe/MailboxDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/QcomScmiDxe/QcomScmiDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/CalibrationDxe/CalibrationDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/VcsDxe/VcsDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ClockDxe/ClockDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/SPMIDxe/SPMIDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ICBDxe/ICBDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/SmemDxe/SmemDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/QcomBds/QcomBds.inf
+INF Binaries/np05j/QcomPkg/Application/QcomChargerApp/QcomChargerApp.inf
+INF Binaries/np05j/QcomPkg/Drivers/RscDxe/RscDxe.inf
+
+FILE FREEFORM = A91D838E-A5FA-4138-825D-455E23030794 {
+    SECTION UI = "BDS_Menu.cfg"
+    SECTION RAW = Binaries/np05j/RawFiles/BDS_Menu.cfg
+}
+
+FILE FREEFORM = A1E235DE-E825-4591-9623-C43175811826 {
+    SECTION UI = "SecParti.cfg"
+    SECTION RAW = Binaries/np05j/RawFiles/SecParti.cfg
+}
+
+INF Binaries/np05j/QcomPkg/Application/Ebl/Ebl.inf
+INF Binaries/np05j/QcomPkg/Drivers/SimpleTextInOutSerialDxe/SimpleTextInOutSerial.inf
+INF MdeModulePkg/Universal/PrintDxe/PrintDxe.inf
+INF MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf
+INF MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf
+INF MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/CPRDxe/CPRDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/GpiDxe/GpiDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/SPIDxe/SPIDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/SdccDxe/SdccDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/FeatureEnablerDxe/FeatureEnablerDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/DisplayDxe/DisplayDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/QRKSDxe/QRKSDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ButtonsDxe/ButtonsDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ChargerExDxe/ChargerExDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/IPCCDxe/IPCCDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/GLinkDxe/GLinkDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/PmicGlinkDxe/PmicGlinkDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/QcomChargerDxe/QcomChargerDxeLA.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbPwrCtrlDxe/UsbPwrCtrlDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/TsensDxe/TsensDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/DDRInfoDxe/DDRInfoDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbfnDwc3Dxe/UsbfnDwc3Dxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/XhciPciEmulationDxe/XhciPciEmulationDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/XhciDxe/XhciDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbBusDxe/UsbBusDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbKbDxe/UsbKbDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbMassStorageDxe/UsbMassStorageDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbMsdDxe/UsbMsdDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbDeviceDxe/UsbDeviceDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbConfigDxe/UsbConfigDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UsbInitDxe/UsbInitDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/UCDxe/UCDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/RNGDxe/RngDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/PILDxe/PILDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/PILProxyDxe/PILProxyDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/SecRSADxe/SecRSADxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ASN1X509Dxe/ASN1X509Dxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/SPSSDxe/SPSSDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/FvUtilsDxe/FvUtilsEnhancedDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/RmVmDxe/RmVmDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/I2CHapticDxe/I2CHapticDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/ParserDxe/ParserEnhancedDxe.inf
+INF Binaries/np05j/QcomPkg/Drivers/SerialPortDxe/SerialPortDxe.inf
+
+FILE FREEFORM = A91D838E-A5FA-4138-825D-455E2303079E {
+    SECTION UI = "logo1.bmp"
+    SECTION RAW = Binaries/np05j/RawFiles/logo1.bmp
+}
+
+FILE FREEFORM = 21E9BDD9-6C3F-4F10-84A5-BBEC322741F1 {
+    SECTION UI = "uefipil.cfg"
+    SECTION RAW = Binaries/np05j/RawFiles/uefipil.cfg
+}
+
+INF Binaries/np05j/QcomPkg/Application/Ebl/Ebl.inf
