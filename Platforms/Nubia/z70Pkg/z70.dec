@@ -1,0 +1,15 @@
+## @file
+#  Nubia Z70 Device Package Declaration
+#
+#  Copyright (c) 2024, Project Silicium. All rights reserved.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = z70Pkg
+  PACKAGE_GUID                   = 4B2E9E32-7D42-4F8B-A9C1-3D6F8E2B4A5C
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include

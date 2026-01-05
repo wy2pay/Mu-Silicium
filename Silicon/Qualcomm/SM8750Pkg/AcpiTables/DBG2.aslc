@@ -1,0 +1,81 @@
+/** @file
+ * Debug Port Table 2 (DBG2) for SM8750
+ *
+ * Serial debug port configuration
+ *
+ * Copyright (c) 2024, Project Silicium. All rights reserved.
+ * SPDX-License-Identifier: BSD-2-Clause-Patent
+ */
+
+#include <IndustryStandard/Acpi.h>
+#include <IndustryStandard/DebugPort2Table.h>
+#include <Library/AcpiLib.h>
+
+#define DBG2_NUM_DEBUG_PORTS               1
+#define DBG2_NUMBER_OF_GENERIC_ADDRESS_REGISTERS 1
+#define DBG2_NAMESPACESTRING_FIELD_SIZE    14
+
+#define PL011_UART_BASE_ADDRESS            0x00A90000  // UART base for debugging
+
+#pragma pack(1)
+
+typedef struct {
+  EFI_ACPI_DEBUG_PORT_2_DESCRIPTION_TABLE Header;
+  EFI_ACPI_DBG2_DEBUG_DEVICE_INFORMATION_STRUCT Dbg2Device;
+  EFI_ACPI_6_5_GENERIC_ADDRESS_STRUCTURE BaseAddressRegister;
+  UINT32 AddressSize;
+  UINT8 NameSpaceString[DBG2_NAMESPACESTRING_FIELD_SIZE];
+} SM8750_DBG2_TABLE;
+
+#pragma pack()
+
+SM8750_DBG2_TABLE Dbg2 = {
+  // Debug Port Table Header
+  {
+    ARM_ACPI_HEADER (
+      EFI_ACPI_6_5_DEBUG_PORT_2_TABLE_SIGNATURE,
+      SM8750_DBG2_TABLE,
+      EFI_ACPI_DBG2_DEBUG_DEVICE_INFORMATION_STRUCT_REVISION
+    ),
+    OFFSET_OF (SM8750_DBG2_TABLE, Dbg2Device),
+    DBG2_NUM_DEBUG_PORTS
+  },
+
+  // Debug Device Information
+  {
+    EFI_ACPI_DBG2_DEBUG_DEVICE_INFORMATION_STRUCT_REVISION,
+    sizeof (EFI_ACPI_DBG2_DEBUG_DEVICE_INFORMATION_STRUCT) +
+      sizeof (EFI_ACPI_6_5_GENERIC_ADDRESS_STRUCTURE) +
+      sizeof (UINT32) +
+      DBG2_NAMESPACESTRING_FIELD_SIZE,
+    DBG2_NUMBER_OF_GENERIC_ADDRESS_REGISTERS,                           // NumberofGenericAddressRegisters
+    DBG2_NAMESPACESTRING_FIELD_SIZE,                                    // NameSpaceStringLength
+    OFFSET_OF (SM8750_DBG2_TABLE, NameSpaceString),                     // NameSpaceStringOffset
+    0,                                                                   // OemDataLength
+    0,                                                                   // OemDataOffset
+    EFI_ACPI_DBG2_PORT_TYPE_SERIAL,                                     // PortType
+    EFI_ACPI_DBG2_PORT_SUBTYPE_SERIAL_ARM_PL011_UART,                   // PortSubtype
+    {EFI_ACPI_RESERVED_BYTE, EFI_ACPI_RESERVED_BYTE},                   // Reserved
+    OFFSET_OF (SM8750_DBG2_TABLE, BaseAddressRegister),                 // BaseAddressRegisterOffset
+    OFFSET_OF (SM8750_DBG2_TABLE, AddressSize)                          // AddressSizeOffset
+  },
+
+  // Base Address Register
+  {
+    EFI_ACPI_6_5_SYSTEM_MEMORY,                                         // AddressSpaceId
+    32,                                                                  // RegisterBitWidth
+    0,                                                                   // RegisterBitOffset
+    32,                                                                  // AccessSize
+    PL011_UART_BASE_ADDRESS                                             // Address
+  },
+
+  // Address Size
+  0x1000,                                                                // 4KB for UART registers
+
+  // Namespace String
+  "\\_SB.UAR0"
+};
+
+VOID* ReferenceAcpiTable (VOID) {
+  return (VOID*)&Dbg2;
+}

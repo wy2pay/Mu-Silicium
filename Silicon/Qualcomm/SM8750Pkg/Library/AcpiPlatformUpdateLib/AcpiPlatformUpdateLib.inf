@@ -1,0 +1,29 @@
+## @file
+# ACPI Platform Update Library for SM8750
+#
+# Copyright (c) 2024, Project Silicium. All rights reserved.
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AcpiPlatformUpdateLib
+  FILE_GUID                      = A0B1C2D3-E4F5-6A7B-8C9D-0E1F2A3B4C5D
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = AcpiPlatformUpdateLib
+
+[Sources]
+  AcpiPlatformUpdateLib.c
+
+[Packages]
+  ArmPkg/ArmPkg.dec
+  ArmPlatformPkg/ArmPlatformPkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  Silicon/Qualcomm/QcomPkg/QcomPkg.dec
+  Silicon/Qualcomm/SM8750Pkg/SM8750Pkg.dec
+
+[LibraryClasses]
+  BaseLib
+  DebugLib
